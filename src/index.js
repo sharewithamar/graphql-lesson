@@ -23,7 +23,8 @@ const client = new ApolloClient({
   link: httpLink,
   cache
 });
-client
+
+/* client
   .query({
     query: gql`
       {
@@ -40,7 +41,7 @@ client
       }
     `
   })
-  .then(res => console.log(res));
+  .then(res => console.log(res)); */
 
 ReactDOM.render(
   <ApolloProvider client={client}>
