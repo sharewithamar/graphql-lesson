@@ -16,8 +16,9 @@ const GET_ITEM_COUNT = gql`
   }
 `;
 
-const CartIconContainer = () => (
-  <Query query={GET_ITEM_COUNT}>
+const CartIconContainer = ({ toggleCartHidden, data: { itemCount } }) => (
+  <CartIcon toggleCartHidden={toggleCartHidden} itemCount={itemCount} />
+  /* <Query query={GET_ITEM_COUNT}>
     {({ data: { itemCount } }) => {
       return (
         <Mutation mutation={TOGGLE_CART_HIDDEN}>
@@ -30,7 +31,10 @@ const CartIconContainer = () => (
         </Mutation>
       );
     }}
-  </Query>
+  </Query> */
 );
 
-export default CartIconContainer;
+export default flowRight(
+  graphql(GET_ITEM_COUNT),
+  graphql(TOGGLE_CART_HIDDEN, { name: 'toggleCartHidden' })
+)(CartIconContainer);
